@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node --env-file=.env server.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/GeorgiosZacharias/Nodejs/issues"
   },
-  "homepage": "https://github.com/GeorgiosZacharias/Nodejs#readme"
+  "homepage": "https://github.com/GeorgiosZacharias/Nodejs#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
 }
