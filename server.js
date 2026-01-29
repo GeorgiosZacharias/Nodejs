@@ -8,7 +8,7 @@ const server = http.createServer((req, res)=>{
     //res.end('<h1>Hello, World!</h1>');
 
     res.writeHead(200, {'Content-Type':'application/json'}); //write head with status code and content type
-    res.end(JSON.stringify({message: 'Server'}));
+    res.end(JSON.stringify({message: 'Server TEST'}));
 });
 
 server.listen(port, ()=>{
