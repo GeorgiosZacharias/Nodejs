@@ -10,42 +10,59 @@ const users = [
     {id:3, name:'Charlie'}
 ];
 
-//logger middleware
+//logger middleware usually in different file
 const logger = (req, res, next)=>{
     console.log(`${req.method} ${req.url}`);
     next();
 };
 
-const server = createServer ((req, res)=>{ // Create HTTP server
-    logger(req, res, ()=>{
-          if(req.url === '/api/users' && req.method === 'GET'){ // Check for specific route and method
-        res.setHeader('Content-Type','application/json');
+const jsonMiddleware = (req, res, next)=>{
+    res.setHeader('Content-Type','application/json');
+    next();
+}
+
+// route handler for /api/users 
+const getUsersHandler = (req, res)=>{
+    if(req.url === '/api/users' && req.method === 'GET'){
         res.write(JSON.stringify(users));
         res.end();    
-    }else if(req.url.match(/^\/api\/users\/([0-9]+)/) && req.method === 'GET'){ //harder without express
-         const id = req.url.split('/')[3];
-         const user = users.find((user) => user.id === parseInt(id));
-          res.setHeader('Content-Type','application/json'); // since we use json
-         if (user){
-            res.write(JSON.stringify(user));
-         }else{
-            res.statusCode = 404; // Not Found status
-            res.write(JSON.stringify({message: 'User not found'}));
-         }
-         res.end();
     }
-    else{
-        res.setHeader('Content-Type','application/json');
+};
+
+// route handler for /api/users:id
+const getUserByIdHandler = (req, res)=>{
+    const id = req.url.split('/')[3];
+    const user = users.find((user) => user.id === parseInt(id));
+    if (user){
+        res.write(JSON.stringify(user));
+    }else{
         res.statusCode = 404; // Not Found status
-        res.write(JSON.stringify({message: 'Route not found'}));
-        res.end();
-
+        res.write(JSON.stringify({message: 'User not found'}));
     }
+    res.end();
+};
+
+//not found handler
+const notFoundHandler = (req, res)=>{
+    res.statusCode = 404;
+    res.write(JSON.stringify({message: 'Route not found'}));
+    res.end();
+};
+
+const server = createServer ((req, res)=>{ // Create HTTP server
+    logger(req, res, ()=>{
+      jsonMiddleware(req, res, ()=>{ 
+        if(req.url === '/api/users' && req.method === 'GET'){
+            getUsersHandler(req, res);
+        } else if(req.url.match(/\/api\/users\/\d+/) && req.method === 'GET') {
+            getUserByIdHandler(req, res);
+        } else {
+            notFoundHandler(req, res);
+        }
+      }); // Call json middleware
     }); // Call logger middleware
-  
-});
+}); // End createServer
 
-
-server.listen(port, ()=>{
+server.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
 });
