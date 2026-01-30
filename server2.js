@@ -9,8 +9,16 @@ const users = [
     {id:2, name:'Bob'},
     {id:3, name:'Charlie'}
 ];
+
+//logger middleware
+const logger = (req, res, next)=>{
+    console.log(`${req.method} ${req.url}`);
+    next();
+};
+
 const server = createServer ((req, res)=>{ // Create HTTP server
-    if(req.url === '/api/users' && req.method === 'GET'){ // Check for specific route and method
+    logger(req, res, ()=>{
+          if(req.url === '/api/users' && req.method === 'GET'){ // Check for specific route and method
         res.setHeader('Content-Type','application/json');
         res.write(JSON.stringify(users));
         res.end();    
@@ -33,6 +41,8 @@ const server = createServer ((req, res)=>{ // Create HTTP server
         res.end();
 
     }
+    }); // Call logger middleware
+  
 });
 
 
