@@ -1,4 +1,5 @@
 // e
+import { read } from 'fs';
 import fs from 'fs/promises';
 
 
@@ -22,9 +23,21 @@ import fs from 'fs/promises';
 // }
 
 //readFile() -- promise.then() version
-fs.readFile('./test.txt','utf-8').then(data => {
-    console.log('File content (promise):', data);
-}).catch(err => {
-    console.error('Error reading file (promise):', err);
+// fs.readFile('./test.txt','utf-8').then(data => {
+//     console.log('File content (promise):', data);
+// }).catch(err => {
+//     console.error('Error reading file (promise):', err);
+// }
+// )
+
+//readfile() -- async/await version
+const readFileAsync = async () => {
+    try{
+        const data = await fs.readFile('./test.txt','utf-8');
+        console.log('File content (async/await):', data);
+    }catch(err){
+        console.error('Error reading file (async/await):', err);
+    }
 }
-)
+
+readFileAsync();
