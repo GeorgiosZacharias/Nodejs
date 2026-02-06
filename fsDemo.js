@@ -41,3 +41,14 @@ const readFileAsync = async () => {
 }
 
 readFileAsync();
+
+//write file() -- async/await version
+const writeFileAsync = async () => {
+    try{
+        await fs.writeFile('./output.txt','This is some output text');
+        console.log('File written successfully');
+    }catch(err){
+        console.error('Error writing file:', err);
+    } 
+}
+writeFileAsync();
