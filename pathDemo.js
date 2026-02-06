@@ -26,3 +26,7 @@ console.log('__dirname:', __dirname);
 // user \ geo
 const joinedPath = path.join(__dirname, 'dir1', 'dir2', 'test.txt'); // Joins multiple path segments into a single path, handling separators
 console.log('Joined Path:', joinedPath);
+
+//resolve() //does kinda the same
+const resolvedPath = path.resolve(__dirname, 'dir1', 'dir2', 'test.txt'); // Resolves a sequence of paths into an absolute path
+console.log('Resolved Path:', resolvedPath);
