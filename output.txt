@@ -1,1 +1,2 @@
 This is some output text
+This is some appended text

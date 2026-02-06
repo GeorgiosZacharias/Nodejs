@@ -52,3 +52,14 @@ const writeFileAsync = async () => {
     } 
 }
 writeFileAsync();
+
+//append file() -- async/await version
+const appendFileAsync = async () => {
+    try{
+        await fs.appendFile('./output.txt','\nThis is some appended text');
+        console.log('File appended successfully');
+    }catch(err){
+        console.error('Error appending file:', err);
+    }
+}
+appendFileAsync();
