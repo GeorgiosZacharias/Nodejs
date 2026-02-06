@@ -11,3 +11,7 @@ console.log(path.dirname(filePath)); // directory portion of a path
 
 //extname()
 console.log(path.extname(filePath)); // file extension (for example '.txt')
+
+//parse()
+const parsedPath = path.parse(filePath);
+console.log(parsedPath); // returns an object with root, dir, base, ext, name properties
