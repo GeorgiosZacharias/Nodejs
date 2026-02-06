@@ -1,8 +1,9 @@
 
+import 'dotenv/config';
 import { createServer } from 'http';
 
 
-const port = process.env.PORT ;
+const port = process.env.PORT ;   
 
 const users = [
     {id:1, name:'Alice'},
@@ -67,12 +68,12 @@ const server = createServer ((req, res)=>{ // Create HTTP server
       jsonMiddleware(req, res, ()=>{ 
         if(req.url === '/api/users' && req.method === 'GET'){
             getUsersHandler(req, res);
-        } else if(req.url.match(/\/api\/users\/\d+/) && req.method === 'GET') {
+        } else if(req.url.match(/\/api\/users\/\d+/) && req.method === 'GET') { // Match /api/users/:id pattern
             getUserByIdHandler(req, res);
         }else if(req.url === '/api/users' && req.method === 'POST') {
             createuserHandler(req, res);
         } else {
-            notFoundHandler(req, res);
+            notFoundHandler(req, res); 
         }
       }); // Call json middleware
     }); // Call logger middleware

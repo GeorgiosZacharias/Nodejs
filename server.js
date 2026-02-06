@@ -27,10 +27,10 @@ const server = http.createServer(async (req, res)=>{
             }else{
                 throw new Error('Not found');
             }
-            const data = await fs.readFile(filePath);
-            res.setHeader('Content-Type','text/html');
-            res.write(data);
-            res.end();
+            const data = await fs.readFile(filePath); //read file content
+            res.setHeader('Content-Type','text/html'); //set content type header
+            res.write(data); //write file content to response
+            res.end(); //end response
     }else{
         throw new Error('Invalid request method');
     }
