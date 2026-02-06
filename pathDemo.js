@@ -8,3 +8,6 @@ console.log(path.basename(filePath)); // last portion of a path
 
 //dirname()
 console.log(path.dirname(filePath)); // directory portion of a path
+
+//extname()
+console.log(path.extname(filePath)); // file extension (for example '.txt')
